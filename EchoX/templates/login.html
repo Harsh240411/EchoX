@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoX — Sign In</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-wrap">
+        <div class="logo-icon">𝕏</div>
+        <div class="logo-text">Echo<span>X</span></div>
+      </div>
+      <h2>Welcome back</h2>
+      <p>Sign in to continue your conversations</p>
+    </div>
+
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <form id="loginForm">
+      <div class="input-group">
+        <label>Email Address</label>
+        <input class="input-field" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input class="input-field" type="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+    </form>
+
+    <div class="auth-switch">
+      Don't have an account? <a href="/signup">Create one →</a>
+    </div>
+  </div>
+</div>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

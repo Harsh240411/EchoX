@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoX — Pulse</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+  <!-- Top Bar -->
+  <header style="padding:14px 24px;border-bottom:1px solid var(--glass-border);background:rgba(8,12,24,0.9);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50">
+    <div class="logo-wrap">
+      <div class="logo-icon">𝕏</div>
+      <div class="logo-text">Echo<span>X</span></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="/chat" class="btn btn-ghost btn-sm">💬 Chat</a>
+      <a href="/groups" class="btn btn-ghost btn-sm">👥 Groups</a>
+      <a href="/dashboard" class="btn btn-ghost btn-sm">🏠 Home</a>
+      <button class="btn btn-primary btn-sm" id="createPulseBtn">⚡ New Pulse</button>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main style="flex:1;padding:28px 24px;max-width:1100px;margin:0 auto;width:100%">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px">
+      <h1 style="font-family:var(--font-display);font-size:1.8rem;font-weight:700">⚡ Pulse</h1>
+      <span style="color:var(--text-muted);font-size:.88rem">Live moments from your network</span>
+    </div>
+
+    <div class="pulse-grid" id="pulseGrid">
+      <div class="empty-state">
+        <div class="empty-icon">⏳</div>
+        <p>Loading pulses…</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Create Pulse Modal -->
+<div class="modal-overlay" id="createPulseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚡ New Pulse</div>
+      <button class="modal-close" onclick="closeModal('createPulseModal')">✕</button>
+    </div>
+    <form id="createPulseForm">
+      <div class="input-group">
+        <label>What's on your mind?</label>
+        <textarea class="input-field" name="pulseText" placeholder="Share something with your network…" style="min-height:100px"></textarea>
+      </div>
+      <div style="margin-bottom:16px" id="pulseMediaPreview"></div>
+      <div style="display:flex;gap:10px;margin-bottom:20px">
+        <button type="button" class="btn btn-ghost btn-sm" id="pulseMediaBtn">🖼️ Add Photo/Video</button>
+        <input type="file" id="pulseMediaInput" accept="image/*,video/*" style="display:none">
+      </div>
+      <button class="btn btn-primary btn-full" type="submit">Share Pulse ⚡</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

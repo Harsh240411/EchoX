@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoX — Dashboard</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="dashboard-layout">
+
+  <!-- Sidebar Navigation -->
+  <aside class="dash-sidebar">
+    <div class="dash-sidebar-logo">
+      <div class="logo-wrap">
+        <div class="logo-icon">𝕏</div>
+        <div class="logo-text">Echo<span>X</span></div>
+      </div>
+    </div>
+
+    <a class="dash-nav-item active" data-section="profileSection" href="javascript:void(0)">
+      <span class="nav-icon">👤</span><span class="nav-label">Profile</span>
+    </a>
+    <a class="dash-nav-item" data-section="chatsSection" href="javascript:void(0)">
+      <span class="nav-icon">💬</span><span class="nav-label">My Chats</span>
+    </a>
+    <a class="dash-nav-item" data-section="groupsSection" href="javascript:void(0)">
+      <span class="nav-icon">👥</span><span class="nav-label">My Groups</span>
+    </a>
+    <a class="dash-nav-item" data-section="pulsesSection" href="javascript:void(0)">
+      <span class="nav-icon">⚡</span><span class="nav-label">My Pulses</span>
+    </a>
+    <a class="dash-nav-item" data-section="settingsSection" href="javascript:void(0)">
+      <span class="nav-icon">⚙️</span><span class="nav-label">Settings</span>
+    </a>
+
+    <!-- Quick Links -->
+    <div style="margin:8px 0;padding:0 8px;">
+      <div style="height:1px;background:var(--glass-border);margin:8px 0;"></div>
+    </div>
+    <a class="dash-nav-item" href="/chat">
+      <span class="nav-icon">💬</span><span class="nav-label">Open Chat</span>
+    </a>
+    <a class="dash-nav-item" href="/groups">
+      <span class="nav-icon">👥</span><span class="nav-label">Groups</span>
+    </a>
+    <a class="dash-nav-item" href="/pulse">
+      <span class="nav-icon">⚡</span><span class="nav-label">Pulse</span>
+    </a>
+
+    <div class="dash-sidebar-footer">
+      <a class="dash-nav-item btn-danger" href="/logout">
+        <span class="nav-icon">🚪</span><span class="nav-label">Logout</span>
+      </a>
+      <a class="dash-nav-item" href="/delete-account" style="color:var(--danger)">
+        <span class="nav-icon">🗑️</span><span class="nav-label">Delete Account</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dash-main">
+
+    <!-- Profile Section -->
+    <section id="profileSection" class="dash-section active">
+      <div class="section-title">👤 Profile</div>
+
+      <div class="profile-card">
+        <div class="profile-avatar-wrap">
+          <div class="avatar xl" id="profileAvatarDisplay">
+            {% if user.avatar %}
+              <img id="avatarPreview" src="{{ user.avatar }}" alt="{{ user.username[0].upper() }}">
+            {% else %}
+              <span>{{ user.username[0].upper() }}</span>
+            {% endif %}
+          </div>
+          <div class="avatar-edit-btn" title="Change photo">✏️</div>
+          <input type="file" id="avatarInput" accept="image/*" style="display:none">
+        </div>
+        <div class="profile-info">
+          <div class="profile-name">{{ user.username }}</div>
+          <div class="profile-email">{{ user.email }}</div>
+          <div class="profile-bio">{{ user.bio or 'No bio yet.' }}</div>
+          <div style="margin-top:16px">
+            <button class="btn btn-ghost btn-sm" onclick="document.querySelector('[data-section=settingsSection]').click()">Edit Profile →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">💬</div>
+          <div class="stat-number" id="statChats">—</div>
+          <div class="stat-label">Chats</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-number" id="statGroups">—</div>
+          <div class="stat-label">Groups</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-number" id="statPulses">—</div>
+          <div class="stat-label">Pulses</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Chats Section -->
+    <section id="chatsSection" class="dash-section">
+      <div class="section-title">💬 My Chats</div>
+      <div class="cards-grid" id="myChatsGrid">
+        <div class="empty-state"><div class="empty-icon">⏳</div><p>Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- My Groups Section -->
+    <section id="groupsSection" class="dash-section">
+      <div class="section-title">👥 My Groups</div>
+      <div class="cards-grid" id="myGroupsGrid">
+        <div class="empty-state"><div class="empty-icon">⏳</div><p>Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- My Pulses Section -->
+    <section id="pulsesSection" class="dash-section">
+      <div class="section-title">⚡ My Pulses</div>
+      <div class="pulse-grid" id="myPulsesGrid">
+        <div class="empty-state"><div class="empty-icon">⏳</div><p>Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section id="settingsSection" class="dash-section">
+      <div class="section-title">⚙️ Settings</div>
+
+      <div class="settings-card">
+        <h3>Edit Profile</h3>
+        <form id="profileEditForm">
+          <div class="input-group">
+            <label>Username</label>
+            <input class="input-field" type="text" name="username" value="{{ user.username }}" required>
+          </div>
+          <div class="input-group">
+            <label>Bio</label>
+            <textarea class="input-field" name="bio" placeholder="Tell people about yourself…">{{ user.bio or '' }}</textarea>
+          </div>
+          <div class="input-group">
+            <label>Profile Photo</label>
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="avatar" style="width:52px;height:52px">
+                {% if user.avatar %}
+                  <img id="avatarPreview" src="{{ user.avatar }}">
+                {% else %}
+                  {{ user.username[0].upper() }}
+                {% endif %}
+              </div>
+              <label class="btn btn-ghost btn-sm" style="cursor:pointer">
+                Choose Photo <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display:none">
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Save Changes</button>
+        </form>
+      </div>
+
+      <div class="settings-card">
+        <h3>Change Password</h3>
+        <form id="changePasswordForm">
+          <div class="input-group">
+            <label>Current Password</label>
+            <input class="input-field" type="password" name="old_password" required>
+          </div>
+          <div class="input-group">
+            <label>New Password</label>
+            <input class="input-field" type="password" name="new_password" required minlength="6">
+          </div>
+          <button class="btn btn-primary" type="submit">Change Password</button>
+        </form>
+      </div>
+
+      <div class="settings-card" style="border-color:rgba(255,77,109,0.2)">
+        <h3 style="color:var(--danger)">Danger Zone</h3>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:16px">
+          These actions are irreversible. Please proceed with caution.
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="/logout" class="btn btn-ghost btn-sm">🚪 Logout</a>
+          <a href="/delete-account" class="btn btn-danger btn-sm">🗑️ Delete Account</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>

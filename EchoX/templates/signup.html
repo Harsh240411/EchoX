@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoX — Create Account</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-wrap">
+        <div class="logo-icon">𝕏</div>
+        <div class="logo-text">Echo<span>X</span></div>
+      </div>
+      <h2>Create your account</h2>
+      <p>Join EchoX and start connecting</p>
+    </div>
+
+    {% if error %}
+    <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <form id="signupForm">
+      <div class="input-group">
+        <label>Username</label>
+        <input class="input-field" type="text" name="username" placeholder="yourname" required autocomplete="username" minlength="3">
+      </div>
+      <div class="input-group">
+        <label>Email Address</label>
+        <input class="input-field" type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input class="input-field" type="password" name="password" placeholder="Min 6 characters" required autocomplete="new-password" minlength="6">
+      </div>
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input class="input-field" type="password" name="confirm_password" placeholder="Repeat password" required autocomplete="new-password" minlength="6">
+      </div>
+      <button class="btn btn-primary btn-full" type="submit">Create Account</button>
+    </form>
+
+    <div class="auth-switch">
+      Already have an account? <a href="/login">Sign in →</a>
+    </div>
+  </div>
+</div>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

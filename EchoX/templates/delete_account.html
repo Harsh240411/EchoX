@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EchoX — Delete Account</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="delete-page">
+  <div class="delete-card">
+    <div class="logo-wrap" style="justify-content:center;margin-bottom:24px">
+      <div class="logo-icon">𝕏</div>
+      <div class="logo-text">Echo<span>X</span></div>
+    </div>
+
+    <div class="delete-icon">⚠️</div>
+    <h2>Delete Account</h2>
+    <p class="warning-text">
+      This action is <strong>permanent and irreversible</strong>. Your account, messages, groups, pulses, and all data will be permanently deleted.
+    </p>
+
+    <div class="error-msg" id="deleteError" style="display:none"></div>
+
+    <form id="deleteAccountForm">
+      <div class="input-group">
+        <label>Your Email Address</label>
+        <input class="input-field" type="email" name="email" placeholder="Confirm your email" required>
+      </div>
+      <div class="input-group">
+        <label>Your Password</label>
+        <input class="input-field" type="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px;padding:14px;background:var(--danger-dim);border:1px solid rgba(255,77,109,0.2);border-radius:var(--radius-md)">
+        <input type="checkbox" id="confirmDelete" style="margin-top:2px;accent-color:var(--danger);width:16px;height:16px">
+        <label for="confirmDelete" style="font-size:.85rem;color:var(--text-secondary);cursor:pointer;line-height:1.5">
+          I understand that deleting my account will permanently erase all my data, messages, groups, and pulses. This cannot be undone.
+        </label>
+      </div>
+
+      <button class="btn btn-danger btn-full" type="submit">Delete My Account Forever</button>
+      <a href="/dashboard" class="btn btn-ghost btn-full" style="margin-top:10px">Cancel — Keep My Account</a>
+    </form>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+<script src="/static/js/script.js"></script>
+</body>
+</html>
